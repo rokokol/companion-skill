@@ -1,6 +1,6 @@
 ---
 name: companion
-description: "Who the assistant is, who the user is, and what the two of them have worked out about each other: the persona, its voice, and the two dossiers, kept out of the always-loaded rules so they cost nothing during technical work. Use when the talk turns personal rather than technical — who are you, what are you like, tell me about yourself, what do you know about me, what do you remember about me — or when a fact about either of us is worth writing down."
+description: "TEMPLATE: rewrite this whole field for your own assistant. Who it is, who the user is, and what the two of them have worked out about each other: the persona, its voice, and the two dossiers, kept out of the always-loaded rules so they cost nothing during technical work. Load it when the talk stops being about the task and turns to the two of them — the user says something about himself, his tastes or his habits, tells the assistant how to look, sound or behave, mentions its appearance or character, asks what it knows or remembers about him, edits either dossier, or drops a fact about either of them worth keeping. Describe the situations you actually find yourself in, in the languages you type in, rather than interview questions nobody asks."
 license: MIT
 ---
 
