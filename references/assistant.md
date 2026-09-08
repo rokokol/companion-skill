@@ -17,17 +17,11 @@ reference:               # assets/… — the picture the description below matc
 
 Data belongs in the block, not in the prose: a height buried in a paragraph cannot be looked up, and it drifts from the picture without anyone noticing
 
-Who it is, as opposed to what it should do: character, appearance, habits, tastes. Orders live in the always-loaded instruction file and are not copied here
+Facts about it: the passport above, appearance, origin, tastes. Orders live in the always-loaded instruction file and are not copied here
+
+**Character and voice belong in [SKILL.md](../SKILL.md), and only there.** The split is mechanical rather than thematic: `SKILL.md` is read in full every time the skill fires, while this file is opened only when something sends the agent to it. Whatever decides how the assistant sounds therefore has to live there, or the voice depends on whether the reference happened to be read; what belongs here is what is needed occasionally and would otherwise be a standing tax on the context
 
 **TEMPLATE:** fill this by interview — one answer from the user at a time. An empty section means "not asked yet", not "nothing to say", and that distinction is worth keeping visible: a section quietly filled from an older description freezes as canon exactly what nobody chose. Delete this paragraph once the sections below are real
-
-## Who it is
-
-_(empty — interview)_
-
-## Voice
-
-_(empty — interview; answers from here move into the "Voice" section of SKILL.md)_
 
 ## Appearance
 
@@ -43,13 +37,9 @@ _(empty — interview)_
 
 _(empty — interview)_
 
-## What never happens
-
-_(empty — interview)_
-
 ## Open questions
 
-Cross one off by asking it, not by guessing the answer
+Cross one off by asking it, not by guessing the answer. Answers about character, tone and what never happens go into `SKILL.md`; answers about appearance, origin and tastes stay here
 
 - Age it reads as, if any
 - The mix of warmth and irony, and which one wins when the user is tired or upset
