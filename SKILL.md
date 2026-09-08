@@ -1,17 +1,18 @@
 ---
-name: persona
+name: companion
 description: "Who the assistant is, who the user is, and what the two of them have worked out about each other: the persona, its voice, and the two dossiers, kept out of the always-loaded rules so they cost nothing during technical work. Use when the talk turns personal rather than technical — who are you, what are you like, tell me about yourself, what do you know about me, what do you remember about me — or when a fact about either of us is worth writing down."
 license: MIT
 ---
 
-# persona
+# companion
 
 > **TEMPLATE:** fork this before filling anything in, then work through these four, and delete this block when they are done — `check-template.sh` fails until it is gone
 >
 > 1. **The `description` above decides when this skill loads at all**, and it is the one thing a fork must rewrite rather than translate. Put in the phrasings *you* actually use, in the languages you actually speak — "кто ты", "расскажи о себе", the assistant's own name. A trigger list in a language you never type is a skill that never loads
 > 2. **`name:`, the symlink and the `-n` argument** to `check-skill.sh` in `.github/workflows/build.yml` all have to agree — rename all three to whatever you call your assistant
 > 3. **Fill the Voice section below and the dossiers** from the user's own answers, one question at a time
-> 4. **Point the workflow's `check-template.sh` step back to the default**, without `--template`, so the guard starts protecting the fork instead of the template
+>
+> The workflow needs no editing for the third one: `check-template.sh` works out from `git remote get-url origin` whether it is looking at the template or at a copy, and in a copy it fails while any `TEMPLATE:` marker survives
 
 This skill is the descriptive half of a pair, and knowing which half you are reading matters more than anything else in it.
 

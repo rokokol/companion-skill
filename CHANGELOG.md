@@ -8,4 +8,4 @@ What earns an entry is a change to the **shape** of the skill: a file added or r
 
 - First cut: `SKILL.md` carrying the persona and the imperative/descriptive split against the always-loaded instruction file, three placeholder reference files, and the `check-skill.sh` / `check-pins.sh` gate in a `build` workflow
 - The dossiers ship empty on purpose, each with an "Open questions" list, and are filled by interview rather than imported from an existing character description
-- `check-template.sh` guards the `TEMPLATE:` markers in both directions: present here, absent in a fork, with the flagless default being the fork's — so a fork inheriting the workflow is red until its placeholders are gone
+- `check-template.sh` guards the `TEMPLATE:` markers in both directions — present here, absent in a copy — and tells the two apart by reading `git remote get-url origin`, so a fork inheriting the workflow verbatim is red until its placeholders are gone, with `--template` / `--fork` to force either expectation

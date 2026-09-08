@@ -1,13 +1,13 @@
 <div align="center">
 
-# persona skill
+# companion skill
 
 **Who we are, as opposed to what to do 🎭**
 
 ![Claude Code](https://img.shields.io/badge/Claude_Code-D97757?style=flat&logo=anthropic&logoColor=white)
 ![Bash](https://img.shields.io/badge/Bash-4EAA25?style=flat&logo=gnubash&logoColor=white)
 [![license](https://img.shields.io/badge/MIT-3DA639?style=flat)](LICENSE)
-[![build](https://github.com/rokokol/persona-skill/actions/workflows/build.yml/badge.svg)](https://github.com/rokokol/persona-skill/actions/workflows/build.yml)
+[![build](https://github.com/rokokol/companion-skill/actions/workflows/build.yml/badge.svg)](https://github.com/rokokol/companion-skill/actions/workflows/build.yml)
 
 </div>
 
@@ -29,8 +29,8 @@ This repository is a **template**. Everything personal in it is a placeholder, a
 ## Install
 
 ```sh
-git clone https://github.com/rokokol/persona-skill ~/Projects/persona-skill
-ln -s ~/Projects/persona-skill ~/.claude/skills/persona
+git clone https://github.com/rokokol/companion-skill ~/Projects/companion-skill
+ln -s ~/Projects/companion-skill ~/.claude/skills/companion
 ```
 
 That is enough to look at it, but not to use it — [fork it first](#keeping-the-private-copy-private), then work through the block at the top of [SKILL.md](SKILL.md), which lists what a fork has to change and is itself one of the things to delete
@@ -57,15 +57,15 @@ A filled-in dossier is personal material, and the safe shape for it is a **separ
 The fork shape has none of that. The private repository is a clone with this one as `upstream`, so the scaffolding is maintained here and arrives there by merge, while the personal commits only ever have a private remote to go to:
 
 ```sh
-git clone <your private repo> ~/Projects/my-persona
-cd ~/Projects/my-persona
-git remote add upstream https://github.com/rokokol/persona-skill
+git clone <your private repo> ~/Projects/my-companion
+cd ~/Projects/my-companion
+git remote add upstream https://github.com/rokokol/companion-skill
 git fetch upstream && git merge upstream/master     # whenever the template moves
 ```
 
-Expect a conflict in the frontmatter `name:`, in the workflow's `-n` argument and in its `check-template.sh` step on the first merge — those are the lines that deliberately differ between a template and a fork. Keep yours
+Expect a conflict in the frontmatter `name:` and in the workflow's `-n` argument on the first merge — those are the lines that deliberately differ between a template and a fork. Keep yours
 
-The fork also inherits [`check-template.sh`](check-template.sh), and that is deliberate. Every placeholder in this repository carries a `TEMPLATE:` marker; run without a flag — which is what a fork's workflow should do — the checker fails while any marker survives. So a half-converted fork is red from its first push, rather than quietly shipping "replace this with the real voice" as part of its persona
+The fork also inherits [`check-template.sh`](check-template.sh), and that is deliberate. Every placeholder here carries a `TEMPLATE:` marker, and the checker decides which expectation applies by reading `git remote get-url origin`: this repository's own origin means the markers must be intact, any other origin means none may survive. So a half-converted fork is red from its first push rather than quietly shipping "replace this with the real voice" as part of its persona — and the workflow needs no editing for that, which is the point, since a guard you have to arm by hand is a guard against a mistake nobody makes twice anyway
 
 ## What goes where
 
@@ -86,9 +86,9 @@ And four places a fact must **not** go:
 ## Tests
 
 ```sh
-./check-skill.sh -n persona
+./check-skill.sh -n companion
 ./check-pins.sh
-./check-template.sh --template     # a fork drops the flag and inverts the expectation
+./check-template.sh                # reads origin; --template / --fork force either way
 ```
 
 [`check-skill.sh`](check-skill.sh) proves the frontmatter is loadable at all, that every file under `references/` is reachable from `SKILL.md` by following links, and that every relative link and heading anchor resolves — then proves each of those checks able to fail, on throwaway copies with one planted defect each, on every run. [`check-pins.sh`](check-pins.sh) does the same for unpinned tool lookups in the workflows. Both are verbatim copies with no repo-specific part, so a fork gets the same gate for free

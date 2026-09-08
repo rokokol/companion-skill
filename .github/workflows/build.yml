@@ -29,12 +29,13 @@ jobs:
       # Both checkers are verbatim copies that falsify themselves on every run, so no
       # toolchain beyond the runner's bash is pinned here because none is used
       - name: check-skill.sh (frontmatter, reachable references, resolving links)
-        run: ./check-skill.sh -n persona
+        run: ./check-skill.sh -n companion
 
       - name: check-pins.sh (no unpinned tool lookups in the workflows)
         run: ./check-pins.sh
 
-      # --template is this repository's own expectation: the placeholders must still be
-      # here. A fork drops the flag, and then the same step fails until they are gone
-      - name: check-template.sh (the placeholders are intact)
-        run: ./check-template.sh --template
+      # No flag: the checker reads origin and works out whether it is the template — where
+      # the placeholders must be intact — or a copy, where any survivor is a failure. So
+      # this step is the same line in a fork, and there is nothing to remember to change
+      - name: check-template.sh (placeholders intact here, gone in a fork)
+        run: ./check-template.sh

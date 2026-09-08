@@ -4,28 +4,42 @@
 # state the repository is supposed to be in — then proves, on every run, that it can tell
 # the two apart, on throwaway copies with a marker planted and stripped.
 #
-#   check-template.sh [--template] [DIR]
+#   check-template.sh [--template | --fork] [DIR]
 #
-# Default (no flag) is the fork's expectation: NO markers may remain, because a leftover
-# placeholder is loaded as part of the persona and read as if somebody had chosen it. A
-# fork inherits the workflow verbatim, so it starts red until the placeholders are gone —
-# which is the point: forgetting is the failure mode this guards.
+# With no flag it works out which it is looking at from `git remote get-url origin`: the
+# template is the one repository whose origin is TEMPLATE_ORIGIN below, and anything else
+# — a different origin, or no origin at all — is a copy. So a fork needs no flag, no
+# edited workflow and no remembering, which is the point: forgetting is the failure mode
+# this guards, and a guard you have to arm by hand does not guard that.
 #
-# --template is the template's own expectation: markers MUST be present, so the template
-# cannot quietly rot into a half-filled persona nobody meant to publish.
+# In a copy, NO markers may remain: a leftover placeholder is loaded as part of the
+# persona and read as if somebody had chosen it. In the template they MUST be present, so
+# it cannot quietly rot into a half-filled persona nobody meant to publish.
+#
+# --template and --fork force either expectation, for the case the detection cannot cover:
+# a fork of the template that is meant to stay a template, or a checkout with no remotes.
 #
 # DIR is the repository (default: the current directory). Exit 1 with `check-template:
-# <what>` on the first finding, 2 on a usage error. Nothing here reaches the network.
+# <what>` on the first finding, 2 on a usage error. Nothing here reaches the network —
+# `git remote get-url` reads .git/config and does not contact the remote.
 set -euo pipefail
 
-usage() { sed -n '2,17p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; }
+usage() { sed -n '2,22p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; }
 
 marker='TEMPLATE:'
-want_markers=0
+# The one origin that means "this is the template itself". Matched as a substring, so it
+# covers the https and ssh spellings and a trailing .git alike
+TEMPLATE_ORIGIN='rokokol/companion-skill'
+
+want_markers=""
 while (($#)); do
   case "$1" in
     --template)
       want_markers=1
+      shift
+      ;;
+    --fork)
+      want_markers=0
       shift
       ;;
     -h | --help)
@@ -54,6 +68,41 @@ fail() {
   echo "check-template: $1" >&2
   exit 1
 }
+
+# ---- which repository is this ---------------------------------------------------------
+# Only the template's own origin makes it the template. A copy has a different one, or
+# none yet — and "none yet" resolves to the strict expectation on purpose: a checkout that
+# cannot prove it is the template is treated as one that has to be filled in.
+origin=""
+detected="no origin"
+if [[ -z "$want_markers" ]]; then
+  origin=$(git -C "$root" remote get-url origin 2>/dev/null || true)
+  case "$origin" in
+    *"$TEMPLATE_ORIGIN"*)
+      want_markers=1
+      detected="origin is the template"
+      ;;
+    "")
+      # No origin. A clone always has one, so this is either the template before its
+      # first push — no remotes at all — or a copy whose remotes were renamed, which is
+      # exactly what an `upstream`-shaped fork looks like
+      if [[ -n "$(git -C "$root" remote 2>/dev/null || true)" ]]; then
+        want_markers=0
+        detected="no origin, but other remotes exist"
+      else
+        want_markers=1
+        detected="no remotes at all"
+      fi
+      ;;
+    *)
+      want_markers=0
+      detected="origin is $origin"
+      ;;
+  esac
+  detected=" ($detected)"
+else
+  detected=" (forced)"
+fi
 
 # Only the documents a persona is actually read from — a marker inside this script's own
 # help text is not a placeholder, and neither is one in the changelog's history
@@ -106,11 +155,11 @@ left=$(docs_with_marker "$root")
 if ((want_markers)); then
   [[ -n "$left" ]] ||
     fail "no $marker marker anywhere — a template whose placeholders are gone is a persona nobody chose to publish"
-  echo "check-template: template intact, markers in:$(printf ' %s' $left), both directions falsified"
+  echo "check-template: template intact$detected, markers in:$(printf ' %s' $left), both directions falsified"
 else
   [[ -z "$left" ]] || {
     echo "check-template: $marker still in:$(printf ' %s' $left)" >&2
-    fail "placeholders survive — they load as part of the persona, so fill them in or delete them (the template itself runs with --template)"
+    fail "placeholders survive — they load as part of the persona, so fill them in or delete them (pass --template if this checkout is meant to stay a template)"
   }
-  echo "check-template: no placeholders left, both directions falsified"
+  echo "check-template: no placeholders left$detected, both directions falsified"
 fi
