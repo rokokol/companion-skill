@@ -1,0 +1,40 @@
+name: build
+
+# Nothing here reaches a registry, a mirror or a live site, so every job is a gate rather
+# than a detector and pull requests run all of them
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      ref:
+        type: string
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.ref }}
+
+      # Both checkers are verbatim copies that falsify themselves on every run, so no
+      # toolchain beyond the runner's bash is pinned here because none is used
+      - name: check-skill.sh (frontmatter, reachable references, resolving links)
+        run: ./check-skill.sh -n persona
+
+      - name: check-pins.sh (no unpinned tool lookups in the workflows)
+        run: ./check-pins.sh
+
+      # --template is this repository's own expectation: the placeholders must still be
+      # here. A fork drops the flag, and then the same step fails until they are gone
+      - name: check-template.sh (the placeholders are intact)
+        run: ./check-template.sh --template
