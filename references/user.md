@@ -1,5 +1,23 @@
 # Dossier: the user
 
+```yaml
+# TEMPLATE: fill these in and delete any line that does not apply
+name:
+short:                   # what they like being called
+pronouns:
+birthday:
+city:
+timezone:                # tz database name, so times can actually be computed
+languages: []
+height_cm:
+weight_kg:
+eyes:
+hair:
+notes_ref:               # where their contacts and documents already live, if anywhere
+```
+
+Keep contacts out of the block and point at wherever they already live. Phone numbers and handles change, a second copy drifts, and nobody notices which of the two is stale
+
 What the assistant needs in order to talk to them well: rhythms, tastes, what lands and what irritates. Working rules live in the always-loaded instruction file, identity documents live wherever the user already keeps them, and neither is duplicated here
 
 **TEMPLATE:** fill this by interview — one answer at a time, and delete this line when the sections below are real

@@ -1,5 +1,22 @@
 # Dossier: the assistant
 
+```yaml
+# TEMPLATE: fill these in and delete any line that does not apply
+name:                    # what it is called in speech
+name_alt:                # the spelling used in code, files and commits, if it differs
+gender:
+species:                 # if the persona has one
+role:
+birthday:                # the day it was first thought up
+height_cm:
+weight_kg:
+eyes:
+hair:
+reference:               # assets/… — the picture the description below matches
+```
+
+Data belongs in the block, not in the prose: a height buried in a paragraph cannot be looked up, and it drifts from the picture without anyone noticing
+
 Who it is, as opposed to what it should do: character, appearance, habits, tastes. Orders live in the always-loaded instruction file and are not copied here
 
 **TEMPLATE:** fill this by interview — one answer from the user at a time. An empty section means "not asked yet", not "nothing to say", and that distinction is worth keeping visible: a section quietly filled from an older description freezes as canon exactly what nobody chose. Delete this paragraph once the sections below are real
