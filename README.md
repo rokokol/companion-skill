@@ -76,12 +76,7 @@ The fork also inherits [`check-template.sh`](check-template.sh), and that is del
 | **[references/assistant.md](references/assistant.md)** | The assistant: character, origin, appearance, habits, what it likes on its own account |
 | **[references/facts.md](references/facts.md)** | Dated one-liners about either of them that are not defining traits. When one turns out to be a trait, it moves into a dossier and leaves |
 
-And four places a fact must **not** go:
-
-- **The always-loaded instruction file** — it owns the imperatives, in exactly one copy. If a line reads as an order, it goes there instead of here, and never in both
-- **A dossier on a third person** — people around the user belong wherever they are already kept, a notes vault or a contacts file, and this skill links there rather than keeping a copy that drifts
-- **A duplicate of the agent's own memory** — whatever your harness persists between sessions already holds working feedback and project state
-- **The user's identity documents** — a birthday or a phone number is not needed in order to talk to somebody well
+Where a fact must **not** go is listed once, in [SKILL.md](SKILL.md#where-a-fact-does-not-go) — the copy an agent actually reads when the skill loads, so it is the one that has to be right
 
 ## Tests
 

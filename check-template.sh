@@ -24,7 +24,9 @@
 # `git remote get-url` reads .git/config and does not contact the remote.
 set -euo pipefail
 
-usage() { sed -n '2,22p' "${BASH_SOURCE[0]}" | sed 's/^# \{0,1\}//'; }
+# The help is the header comment above, whole: it ends where the first non-comment line
+# starts, so the text can grow without a line count here going stale
+usage() { awk 'NR == 1 { next } !/^#/ { exit } { sub(/^# ?/, ""); print }' "${BASH_SOURCE[0]}"; }
 
 marker='TEMPLATE:'
 # The one origin that means "this is the template itself". Matched as a substring, so it
@@ -111,7 +113,7 @@ docs_with_marker() {
   local f
   for f in "$dir/SKILL.md" "$dir/references"/*.md; do
     [[ -f "$f" ]] || continue
-    if grep -qF -- "$marker" "$f"; then found="$found ${f#$dir/}"; fi
+    if grep -qF -- "$marker" "$f"; then found="$found ${f#"$dir"/}"; fi
   done
   printf '%s' "${found# }"
 }

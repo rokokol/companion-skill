@@ -26,7 +26,7 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
 
-      # Both checkers are verbatim copies that falsify themselves on every run, so no
+      # Every checker below is plain bash that falsifies itself on every run, so no
       # toolchain beyond the runner's bash is pinned here because none is used
       - name: check-skill.sh (frontmatter, reachable references, resolving links)
         run: ./check-skill.sh -n companion

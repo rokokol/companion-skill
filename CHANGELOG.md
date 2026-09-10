@@ -4,6 +4,12 @@ This repository has no version — it is read at whatever revision is checked ou
 
 What earns an entry is a change to the **shape** of the skill: a file added or renamed, a rule about what belongs where, a change to the frontmatter that decides when the skill loads. What does not is the content of the dossiers, which in a fork changes constantly and by design. `git log` is the record for those, and an entry per fact would bury the entries that matter
 
+## 2026-09-10
+
+- The places a fact must not go are listed only in `SKILL.md`; the README links there instead of keeping a second copy, which had already started to drift
+- The trigger guidance asks for what you actually say when the talk turns personal, including simply wanting support, rather than interview questions like "tell me about yourself"
+- `check-template.sh --help` prints its whole header instead of stopping mid-sentence
+
 ## 2026-09-08
 
 - First cut: `SKILL.md` carrying the persona and the imperative/descriptive split against the always-loaded instruction file, three placeholder reference files, and the `check-skill.sh` / `check-pins.sh` gate in a `build` workflow
