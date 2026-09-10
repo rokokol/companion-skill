@@ -31,6 +31,9 @@ jobs:
       - name: check-skill.sh (frontmatter, reachable references, resolving links)
         run: ./check-skill.sh -n companion
 
+      - name: vendor-sync.sh check (every vendored copy is byte-equal to its source)
+        run: ./vendor-sync.sh check
+
       - name: check-pins.sh (no unpinned tool lookups in the workflows)
         run: ./check-pins.sh
 
