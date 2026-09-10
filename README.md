@@ -4,7 +4,7 @@
 
 **Who we are, as opposed to what to do 🎭**
 
-![Claude Code](https://img.shields.io/badge/Claude_Code-D97757?style=flat&logo=anthropic&logoColor=white)
+[![Agent Skill](https://img.shields.io/badge/Agent_Skill-6E56CF?style=flat)](https://agentskills.io)
 ![Bash](https://img.shields.io/badge/Bash-4EAA25?style=flat&logo=gnubash&logoColor=white)
 [![license](https://img.shields.io/badge/MIT-3DA639?style=flat)](LICENSE)
 [![build](https://github.com/rokokol/companion-skill/actions/workflows/build.yml/badge.svg)](https://github.com/rokokol/companion-skill/actions/workflows/build.yml)
