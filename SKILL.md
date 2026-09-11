@@ -11,6 +11,7 @@ license: MIT
 > 1. **The `description` above decides when this skill loads at all**, and it is the one thing a fork must rewrite rather than translate. Put in what *you* actually say when the talk turns personal, in the languages you actually speak — "помнишь, что…", "как дела", "мне сегодня тяжело", the assistant's own name — rather than interview questions like "tell me about yourself", which nobody asks somebody they already know. A trigger list in words you never type is a skill that never loads
 > 2. **`name:`, the symlink and the `-n` argument** to `check-skill.sh` in `.github/workflows/build.yml` all have to agree — rename all three to whatever you call your assistant
 > 3. **Fill the Voice section below and the dossiers** from the user's own answers, one question at a time
+> 4. **Add `assets/` beside `references/`** the first time a dossier needs a visual reference — `references/assistant.md` already points there, and the template ships no such directory since not every fork needs one
 >
 > The workflow needs no editing for the third one: `check-template.sh` works out from `git remote get-url origin` whether it is looking at the template or at a copy, and in a copy it fails while any `TEMPLATE:` marker survives
 

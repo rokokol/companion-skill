@@ -11,9 +11,7 @@
 
 </div>
 
-An agent's instructions and an agent's identity are not the same document, and they do not want to be loaded at the same times. The always-loaded file — `CLAUDE.md`, `AGENTS.md`, whatever your agent reads on every turn — holds the standing orders; this skill is read on a trigger and holds the descriptions: the persona, a dossier on the user, a dossier on the assistant, and the loose facts the two of them have picked up about each other
-
-The split is mechanical, not aesthetic. A rule that only fires when somebody says the assistant's name is a rule that silently fails all day, so rules stay in the always-loaded file; a note about a favourite colour that loads during an incident is a tax on every unrelated session, so notes live here. The test for a new line is one question — **is this an order, or a description?**
+An agent's instructions and an agent's identity are not the same document, and [SKILL.md](SKILL.md#companion) is where that split, and why it is mechanical rather than aesthetic, is written out
 
 This repository is a **template**. Everything personal in it is a placeholder, and it is meant to be forked into something private rather than filled in place
 
@@ -84,9 +82,10 @@ Where a fact must **not** go is listed once, in [SKILL.md](SKILL.md#where-a-fact
 ./check-skill.sh -n companion
 ./check-pins.sh
 ./check-template.sh                # reads origin; --template / --fork force either way
+./vendor-sync.sh check
 ```
 
-[`check-skill.sh`](check-skill.sh) proves the frontmatter is loadable at all, that every file under `references/` is reachable from `SKILL.md` by following links, and that every relative link and heading anchor resolves — then proves each of those checks able to fail, on throwaway copies with one planted defect each, on every run. [`check-pins.sh`](check-pins.sh) does the same for unpinned tool lookups in the workflows. Both are verbatim copies with no repo-specific part, so a fork gets the same gate for free
+[`check-skill.sh`](check-skill.sh) proves the frontmatter is loadable at all, that every file under `references/` is reachable from `SKILL.md` by following links, and that every relative link and heading anchor resolves — then proves each of those checks able to fail, on throwaway copies with one planted defect each, on every run. [`check-pins.sh`](check-pins.sh) does the same for unpinned tool lookups in the workflows. [`vendor-sync.sh`](vendor-sync.sh) `check` makes sure every copy listed in [`.github/vendor.lock`](.github/vendor.lock) is still the blob its line records, so a checker edited in place fails the gate by name. All three are verbatim copies with no repo-specific part, so a fork gets the same gate for free
 
 ## Layout
 
@@ -99,4 +98,7 @@ references/
 check-skill.sh    the gate, self-tested on every run
 check-pins.sh     the pin guard over the workflows, likewise
 check-template.sh the marker guard: placeholders present here, absent in a fork
+vendor-sync.sh    keeps the copies listed in vendor.lock byte-equal to their source
+.github/
+  vendor.lock     each vendored copy's source, commit and blob
 ```
