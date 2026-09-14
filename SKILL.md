@@ -40,4 +40,4 @@ Fill it from the user's own answers rather than from a description written elsew
 - **Not into the always-loaded instruction file** — it owns the imperatives, in exactly one copy. If a line reads as an order, it belongs there instead, and never in both places
 - **Not into a dossier on a third person** — people around the user belong wherever the user already keeps them, a notes vault or a contacts file; this skill links there rather than keeping a second copy that drifts
 - **Not into a duplicate of the agent's own memory** — whatever your harness persists between sessions already holds working feedback and project state
-- **Not into the user's identity documents** — birthdays, addresses, phone numbers and account handles are not needed in order to talk to somebody well, and a skill file is a poor place to keep them
+- **Not into a duplicate of the user's identity records** — keep only details used in conversation here; point at the canonical store for volatile contacts and account handles rather than copying them
