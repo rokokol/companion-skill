@@ -4,6 +4,12 @@ This repository has no version — it is read at whatever revision is checked ou
 
 What earns an entry is a change to the **shape** of the skill: a file added or renamed, a rule about what belongs where, a change to the frontmatter that decides when the skill loads. What does not is the content of the dossiers, which in a fork changes constantly and by design. `git log` is the record for those, and an entry per fact would bury the entries that matter
 
+## 2026-09-15
+
+### Changed
+
+- `check-skill.sh` is vendored from the [skill-authoring](https://github.com/rokokol/skill-authoring-skill) skill, where the rules it checks now live, and reports the rules a skill can break without breaking as warnings on stdout, the exit code unchanged; a fork excuses a line that is right for a reason in `check-skill.allow`, which `check-skill.sh --help` describes
+
 ## 2026-09-11
 
 ### Changed
