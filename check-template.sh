@@ -1,32 +1,34 @@
 #!/usr/bin/env bash
-# The marker guard: a template's placeholders must not survive into a fork that is being
-# used for real. Every placeholder carries a `TEMPLATE:` marker, and this decides which
-# state the repository is supposed to be in — then proves, on every run, that it can tell
-# the two apart, on throwaway copies with a marker planted and stripped.
-#
-#   check-template.sh [--template | --fork] [DIR]
-#
-# With no flag it works out which it is looking at from `git remote get-url origin`: the
-# template is the one repository whose origin is TEMPLATE_ORIGIN below, and anything else
-# — a different origin, or no origin at all — is a copy. So a fork needs no flag, no
-# edited workflow and no remembering, which is the point: forgetting is the failure mode
-# this guards, and a guard you have to arm by hand does not guard that.
-#
-# In a copy, NO markers may remain: a leftover placeholder is loaded as part of the
-# persona and read as if somebody had chosen it. In the template they MUST be present, so
-# it cannot quietly rot into a half-filled persona nobody meant to publish.
-#
-# --template and --fork force either expectation, for the case the detection cannot cover:
-# a fork of the template that is meant to stay a template, or a checkout with no remotes.
-#
-# DIR is the repository (default: the current directory). Exit 1 with `check-template:
-# <what>` on the first finding, 2 on a usage error. Nothing here reaches the network —
+# Nothing here reaches the network —
 # `git remote get-url` reads .git/config and does not contact the remote.
 set -euo pipefail
 
-# The help is the header comment above, whole: it ends where the first non-comment line
-# starts, so the text can grow without a line count here going stale
-usage() { awk 'NR == 1 { next } !/^#/ { exit } { sub(/^# ?/, ""); print }' "${BASH_SOURCE[0]}"; }
+usage() {
+  cat <<'EOF'
+The marker guard: a template's placeholders must not survive into a fork that is being
+used for real. Every placeholder carries a `TEMPLATE:` marker, and this decides which
+state the repository is supposed to be in — then proves, on every run, that it can tell
+the two apart, on throwaway copies with a marker planted and stripped.
+
+  check-template.sh [--template | --fork] [DIR]
+
+With no flag it works out which it is looking at from `git remote get-url origin`: the
+template is the one repository whose origin is TEMPLATE_ORIGIN below, and anything else
+— a different origin, or no origin at all — is a copy. So a fork needs no flag, no
+edited workflow and no remembering, which is the point: forgetting is the failure mode
+this guards, and a guard you have to arm by hand does not guard that.
+
+In a copy, NO markers may remain: a leftover placeholder is loaded as part of the
+persona and read as if somebody had chosen it. In the template they MUST be present, so
+it cannot quietly rot into a half-filled persona nobody meant to publish.
+
+--template and --fork force either expectation, for the case the detection cannot cover:
+a fork of the template that is meant to stay a template, or a checkout with no remotes.
+
+DIR is the repository (default: the current directory). Exit 1 with `check-template:
+<what>` on the first finding, 2 on a usage error.
+EOF
+}
 
 marker='TEMPLATE:'
 # The one origin that means "this is the template itself". Matched as a substring, so it
