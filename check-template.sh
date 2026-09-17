@@ -24,8 +24,8 @@ it cannot quietly rot into a half-filled persona nobody meant to publish
 --template and --fork force either expectation, for the case the detection cannot cover:
 a fork of the template that is meant to stay a template, or a checkout with no remotes
 
-DIR is the repository (default: the current directory).
-Nothing here reaches the network.
+DIR is the repository (default: the current directory)
+Nothing here reaches the network
 Exit 1 with `check-template: <what>` on the first finding, 2 on a usage error
 EOF
 }
