@@ -26,9 +26,22 @@ This repository is a **template**. Everything personal in it is a placeholder, a
 
 ## Install
 
-```sh
-git clone https://github.com/rokokol/companion-skill ~/Projects/companion-skill
-ln -s ~/Projects/companion-skill ~/.claude/skills/companion
+```bash
+npx skills add -g rokokol/companion-skill    # for you, everywhere
+npx skills add rokokol/companion-skill       # for the project you are standing in
+```
+
+Claude Code also takes it as a plugin:
+
+```
+/plugin marketplace add rokokol/skills
+/plugin install companion@rokokol-skills
+```
+
+or by hand — clone into whichever skills directory your agent reads:
+
+```bash
+git clone https://github.com/rokokol/companion-skill ~/.claude/skills/companion
 ```
 
 That is enough to look at it, but not to use it — [fork it first](#keeping-the-private-copy-private), then work through the block at the top of [SKILL.md](SKILL.md), which lists what a fork has to change and is itself one of the things to delete
